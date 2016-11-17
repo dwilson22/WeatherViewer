@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WeatherViewer</string>
+    <string name="search_hint">City</string>
+    <string name="search_desc">Search for city button</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

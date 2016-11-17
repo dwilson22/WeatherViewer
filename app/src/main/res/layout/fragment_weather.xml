@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ca.danieljameswilson.weatherviewer.WeatherFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cityTextView"
+        android:layout_centerHorizontal="true"
+        android:textSize="40sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        android:text="Ottawa, On"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/currantTemp"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:layout_below="@id/cityTextView"
+        android:layout_marginBottom="5dp"
+        android:text="10\u00b0C"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/highTemp"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/currantTemp"
+        android:text="High:20\u00b0C"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lowTemp"
+        android:textSize="20sp"
+        android:layout_marginBottom="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/highTemp"
+        android:text="Low:1\u00b0C"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/weatherDesc"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/lowTemp"
+        android:text="Cloudy"/>
+
+</RelativeLayout>
