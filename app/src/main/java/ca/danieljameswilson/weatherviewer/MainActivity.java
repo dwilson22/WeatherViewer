@@ -13,7 +13,8 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity implements OnWeatherRequestCompleted{
     private ImageButton searchButton;
     private String city;
-    public final static String CITY_KEY = "city";
+    public final static String LOG_KEY = "WeatherLog";
+    public final static String WEATHER_KEY = "weatherDetails";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +38,9 @@ public class MainActivity extends AppCompatActivity implements OnWeatherRequestC
     };
 
     @Override
-    public void onTaskCompleted() {
+    public void onTaskCompleted(WeatherDetails weather) {
         Bundle args = new Bundle();
-        args.putString(CITY_KEY,city);
+        args.putParcelable(WEATHER_KEY, weather);
         WeatherFragment f = new WeatherFragment();
         f.setArguments(args);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnWeatherRequestC
 
     public static class WeatherRequest extends AsyncTask<String, Void, JSONObject> {
 
+        private String city;
         private OnWeatherRequestCompleted listener;
 
         public WeatherRequest (OnWeatherRequestCompleted listener){
@@ -56,14 +58,15 @@ public class MainActivity extends AppCompatActivity implements OnWeatherRequestC
 
         @Override
         protected JSONObject doInBackground(String... params) {
+            city = params[0];
             return null;
         }
 
         @Override
         protected void onPostExecute(JSONObject weatherData){
            super.onPostExecute(weatherData);
-
-            listener.onTaskCompleted();
+            WeatherDetails weather  = new WeatherDetails( 15, 20, 10, "cloudy", city);
+            listener.onTaskCompleted(weather);
         }
     }
 }

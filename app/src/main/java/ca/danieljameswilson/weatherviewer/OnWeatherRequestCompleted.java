@@ -5,5 +5,5 @@ package ca.danieljameswilson.weatherviewer;
  */
 
 public interface OnWeatherRequestCompleted {
-    void onTaskCompleted();
+    void onTaskCompleted(WeatherDetails weather);
 }
