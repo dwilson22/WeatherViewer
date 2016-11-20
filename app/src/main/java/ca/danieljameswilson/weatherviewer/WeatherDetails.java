@@ -9,14 +9,16 @@ import android.os.Parcelable;
 
 public class WeatherDetails implements Parcelable {
     private String city, description;
-    private int currantTemp, high, low;
+    private int currantTemp, high, low, tmrHigh, tmrLow;
 
-    public WeatherDetails(int c, int h, int l, String d, String city){
+    public WeatherDetails(int c, int h, int l, String d, String city, int th, int tl){
         this.city = city;
         description = d;
         currantTemp = c;
         high = h;
         low = l;
+        tmrHigh = th;
+        tmrLow = tl;
     }
 
     protected WeatherDetails(Parcel in) {
@@ -25,6 +27,8 @@ public class WeatherDetails implements Parcelable {
         currantTemp = in.readInt();
         high = in.readInt();
         low = in.readInt();
+        tmrHigh = in.readInt();
+        tmrLow = in.readInt();
     }
 
     @Override
@@ -34,6 +38,8 @@ public class WeatherDetails implements Parcelable {
         dest.writeInt(getCurrantTemp());
         dest.writeInt(getHigh());
         dest.writeInt(getLow());
+        dest.writeInt(getTmrHigh());
+        dest.writeInt(getTmrLow());
     }
 
     @Override
@@ -71,5 +77,11 @@ public class WeatherDetails implements Parcelable {
 
     public int getLow() {
         return low;
+    }
+    public int getTmrHigh() {
+        return tmrHigh;
+    }
+    public int getTmrLow() {
+        return tmrLow;
     }
 }

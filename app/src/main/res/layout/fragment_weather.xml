@@ -48,8 +48,25 @@
         android:id="@+id/weatherDesc"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="15dp"
         android:layout_below="@id/lowTemp"
         android:text="Cloudy"/>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tmrHigh"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/weatherDesc"
+        android:text="Tomorrow's High:"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tmrLow"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/tmrHigh"
+        android:text="Tomorrow's Low:"/>
 </RelativeLayout>

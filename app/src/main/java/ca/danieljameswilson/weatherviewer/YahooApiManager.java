@@ -93,8 +93,10 @@ Log.d(MainActivity.LOG_KEY,urlString.toString());
             JSONArray forecast = item.getJSONArray("forecast");
             int high = forecast.getJSONObject(0).getInt("high");
             int low = forecast.getJSONObject(0).getInt("low");
+            int tmrHigh = forecast.getJSONObject(1).getInt("high");
+            int tmrLow = forecast.getJSONObject(1).getInt("low");
 
-            details = new WeatherDetails(currentTemp, high, low, desc, city);
+            details = new WeatherDetails(currentTemp, high, low, desc, city,tmrHigh,tmrLow);
 
         }catch(JSONException e) {
             Log.e(MainActivity.LOG_KEY, e.getClass().getName()+ " : "+ e.getMessage());
