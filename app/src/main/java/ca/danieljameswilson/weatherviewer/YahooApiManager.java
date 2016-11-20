@@ -26,7 +26,7 @@ public class YahooApiManager {
         city = c;
     }
 
-    public WeatherDetails getWeather(){
+    public WeatherDetails getWeather() throws ApiException{
 
         JSONObject json = makeRequest();
 
@@ -35,10 +35,11 @@ public class YahooApiManager {
         return details;
     }
 
-    private JSONObject makeRequest(){
+    private JSONObject makeRequest() throws ApiException{
 
         HttpURLConnection urlConnection;
         URL url;
+        JSONObject json;
         String yql = String.format("select * from weather.forecast where u=\"c\" and woeid in (select woeid from geo.places(1) where text=\"%s\")", city);
 
 
@@ -63,16 +64,23 @@ Log.d(MainActivity.LOG_KEY,urlString.toString());
                 response.append(temp);
             }
 
-            JSONObject json =(JSONObject) new JSONTokener(response.toString()).nextValue();
-            return json;
+            json =(JSONObject) new JSONTokener(response.toString()).nextValue();
+
 
         }catch(IOException|JSONException e){
-            Log.e(MainActivity.LOG_KEY,"ERROR NULL RETURN: "+e.getClass().getName());
-            return null;
+            Log.e(MainActivity.LOG_KEY,"ERROR NULL RETURN: "+e.getClass().getName()+ " : "+ e.getMessage());
+            throw new ApiException("Unable to process Request");
         }
+
+        return json;
     }
 
-    private WeatherDetails parseJSON(JSONObject json){
+    private WeatherDetails parseJSON(JSONObject json) throws ApiException{
+        if(json == null){
+            Log.d(MainActivity.LOG_KEY,"json: json object is null");
+            return null;
+        }
+        WeatherDetails details;
         try {
             JSONObject item = json.getJSONObject("query")
                     .getJSONObject("results")
@@ -86,11 +94,13 @@ Log.d(MainActivity.LOG_KEY,urlString.toString());
             int high = forecast.getJSONObject(0).getInt("high");
             int low = forecast.getJSONObject(0).getInt("low");
 
-            WeatherDetails details = new WeatherDetails(currentTemp, high, low, desc, city);
-            return details;
+            details = new WeatherDetails(currentTemp, high, low, desc, city);
+
         }catch(JSONException e) {
-            Log.e(MainActivity.LOG_KEY, e.getClass().getName());
-            return null;
+            Log.e(MainActivity.LOG_KEY, e.getClass().getName()+ " : "+ e.getMessage());
+            throw new ApiException("Unable to parse Request");
+
         }
+        return details;
     }
 }
