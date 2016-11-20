@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements OnWeatherRequestC
     public View.OnClickListener onSearchButton = new View.OnClickListener(){
 
         @Override
-        public void onClick(View v) {
+            public void onClick(View v) {
 
             EditText citySearch = (EditText) findViewById(R.id.searchText);
             city = citySearch.getText().toString();
@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity implements OnWeatherRequestC
         WeatherFragment f = new WeatherFragment();
         f.setArguments(args);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.add(R.id.weatherFragment,f).commit();
+        ft.replace(R.id.weatherFragment,f).commit();
     }
 
-    public static class WeatherRequest extends AsyncTask<String, Void, JSONObject> {
+    public static class WeatherRequest extends AsyncTask<String, Void, WeatherDetails> {
 
         private String city;
         private OnWeatherRequestCompleted listener;
@@ -57,16 +57,19 @@ public class MainActivity extends AppCompatActivity implements OnWeatherRequestC
         }
 
         @Override
-        protected JSONObject doInBackground(String... params) {
+        protected WeatherDetails doInBackground(String... params) {
             city = params[0];
-            return null;
+
+            YahooApiManager apiManager = new YahooApiManager(city);
+            WeatherDetails details = apiManager.getWeather();
+            return details;
         }
 
         @Override
-        protected void onPostExecute(JSONObject weatherData){
+        protected void onPostExecute(WeatherDetails weatherData){
            super.onPostExecute(weatherData);
-            WeatherDetails weather  = new WeatherDetails( 15, 20, 10, "cloudy", city);
-            listener.onTaskCompleted(weather);
+
+            listener.onTaskCompleted(weatherData);
         }
     }
 }
